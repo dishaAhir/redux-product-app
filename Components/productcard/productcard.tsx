@@ -1,3 +1,10 @@
+"use client";
+
+import { useDispatch } from "react-redux";
+import {
+  deleteProduct,
+  setEditingProduct,
+} from "@/store/features/products/productSlice";
 import styles from "./productcard.module.scss";
 
 type ProductCardProps = {
@@ -7,27 +14,44 @@ type ProductCardProps = {
   description: string;
 };
 
-export default function Productcard({
+export default function ProductCard({
+  id,
   name,
   image,
   description,
 }: ProductCardProps) {
+  const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    dispatch(
+      setEditingProduct({
+        id,
+        name,
+        image,
+        description,
+      }),
+    );
+  };
+
   return (
     <div className={styles.card}>
-      <img
-        src={image}
-        alt={name}
-        className={styles.image}
-      />
+      <img src={image} alt={name} className={styles.image} />
 
-      <h2 className={styles.title}>{name}</h2>
+      <h2>{name}</h2>
 
-      <p className={styles.description}>{description}</p>
+      <p>{description}</p>
 
       <div className={styles.buttonGroup}>
-        <button className={styles.editBtn}>Edit</button>
+        <button className={styles.editBtn} onClick={handleEdit}>
+          Edit
+        </button>
 
-        <button className={styles.deleteBtn}>Delete</button>
+        <button
+          className={styles.deleteBtn}
+          onClick={() => dispatch(deleteProduct(id))}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

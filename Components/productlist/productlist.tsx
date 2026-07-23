@@ -1,12 +1,20 @@
-import { mockData } from "@/data/mockdata";
-import Productcard from "../productcard/productcard";
+"use client";
+
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import ProductCard from "../productcard/productcard";
 import styles from "./productlist.module.scss";
 
 export default function ProductList() {
+
+  const products = useSelector(
+    (state: RootState) => state.products.products
+  );
+
   return (
     <div className={styles.container}>
-      {mockData.map((product) => (
-        <Productcard
+      {products.map((product) => (
+        <ProductCard
           key={product.id}
           id={product.id}
           name={product.name}

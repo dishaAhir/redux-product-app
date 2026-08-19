@@ -13,7 +13,7 @@ export default function ProductList() {
 
   return (
     <div className={styles.container}>
-      {products.map((product) => (
+      {products.map((product) => ( 
         <ProductCard
           key={product.id}
           id={product.id}

@@ -3,7 +3,7 @@
 import { useDispatch } from "react-redux";
 import {
   deleteProduct,
-  setEditingProduct,
+  setProductBeingEdited,
 } from "@/store/features/products/productSlice";
 import styles from "./productcard.module.scss";
 
@@ -24,7 +24,7 @@ export default function ProductCard({
 
   const handleEdit = () => {
     dispatch(
-      setEditingProduct({
+      setProductBeingEdited({
         id,
         name,
         image,
@@ -33,26 +33,29 @@ export default function ProductCard({
     );
   };
 
+  const renderAction = () => (
+    <div className={styles.buttonGroup}>
+      <button className={styles.editBtn} onClick={handleEdit}>
+        Edit
+      </button>
+
+      <button
+        className={styles.deleteBtn}
+        onClick={() => dispatch(deleteProduct(id))}
+      >
+        Delete
+      </button>
+    </div>
+  );
+
   return (
     <div className={styles.card}>
       <img src={image} alt={name} className={styles.image} />
-
       <h2>{name}</h2>
-
       <p>{description}</p>
-
-      <div className={styles.buttonGroup}>
-        <button className={styles.editBtn} onClick={handleEdit}>
-          Edit
-        </button>
-
-        <button
-          className={styles.deleteBtn}
-          onClick={() => dispatch(deleteProduct(id))}
-        >
-          Delete
-        </button>
-      </div>
+      {renderAction()}
     </div>
   );
 }
+
+

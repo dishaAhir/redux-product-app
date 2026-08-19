@@ -5,6 +5,8 @@
   padding: 15px;
   text-align: center;
   background: hsl(0, 9%, 98%);
+  user-select: none;
+  cursor: default;
 }
 
 .image {
